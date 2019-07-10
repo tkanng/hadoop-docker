@@ -1,6 +1,6 @@
 #!/bin/bash
 # create hadoop network, docker network create --driver=bridge hadoop
-
+# setup hadoop cluster.........
 # the default node number is 3
 N=${1:-3}
 
