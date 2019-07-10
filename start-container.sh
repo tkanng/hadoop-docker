@@ -3,6 +3,7 @@
 # the default node number is 3
 N=${1:-3}
 
+Image=tkanng/hadoop:2.7.7
 
 # start hadoop master container
 sudo docker rm -f hadoop-master &> /dev/null
@@ -13,7 +14,7 @@ sudo docker run -itd \
                 -p 8088:8088 \
                 --name hadoop-master \
                 --hostname hadoop-master \
-                kiwenlau/hadoop:1.0 &> /dev/null
+                $Image &> /dev/null
 
 
 # start hadoop slave container
@@ -26,7 +27,7 @@ do
 	                --net=hadoop \
 	                --name hadoop-slave$i \
 	                --hostname hadoop-slave$i \
-	                kiwenlau/hadoop:1.0 &> /dev/null
+	                $Image &> /dev/null
 	i=$(( $i + 1 ))
 done 
 
