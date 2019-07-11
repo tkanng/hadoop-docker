@@ -3,6 +3,9 @@ FROM tkanng/hadoop:2.7.7
 ARG HIVE_VERSION=3.1.1
 
 
+
+
+# 如果清华的镜像源不存在对应版本的hadoop，请更换为Apache的地址
 # wget https://archive.apache.org/dist/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz 
 RUN wget https://mirrors.tuna.tsinghua.edu.cn/apache/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz && \
     tar -zxvf apache-hive-${HIVE_VERSION}-bin.tar.gz && \

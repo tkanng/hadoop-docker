@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 RUN  apt-get update && apt-get install -y openssh-server wget
 
 RUN mkdir -p /usr/lib/jvm/
-
+# Please download jdk before building base image....
 COPY jdk1.8.0_211 /usr/lib/jvm/jdk1.8.0_211
 
 ENV JAVA_HOME=/usr/lib/jvm/jdk1.8.0_211

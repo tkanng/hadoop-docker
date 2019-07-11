@@ -3,7 +3,10 @@
 # setup hadoop cluster.........
 # the default node number is 3
 
+# setup hadoop cluster
 
+
+# create network
 docker network create hadoop 
 
 N=${1:-3}

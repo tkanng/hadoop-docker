@@ -6,6 +6,7 @@ WORKDIR /root
 ARG HADOOP_VERSION=2.7.7
 
 # install hadoop 2.7.7
+# 如果清华的镜像源不存在对应版本的hadoop，请更换为Apache的地址
 RUN wget https://mirrors.tuna.tsinghua.edu.cn/apache/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz && \
     tar -xzvf hadoop-${HADOOP_VERSION}.tar.gz && \
     mv hadoop-${HADOOP_VERSION} /usr/local/hadoop && \

@@ -1,100 +1,48 @@
-## Run Hadoop Cluster within Docker Containers
 
-- Blog: [Run Hadoop Cluster in Docker Update](http://kiwenlau.com/2016/06/26/hadoop-cluster-docker-update-english/)
-- 博客: [基于Docker搭建Hadoop集群之升级版](http://kiwenlau.com/2016/06/12/160612-hadoop-cluster-docker-update/)
+## 利用Docker启动Hadoop集群与Hive并调试
 
-
-![alt tag](https://raw.githubusercontent.com/kiwenlau/hadoop-cluster-docker/master/hadoop-cluster-docker.png)
-
-
-### 3 Nodes Hadoop Cluster
-
-##### 1. pull docker image
-
+### 一、 使用说明
+1. 启动Hadoop集群：
 ```
-sudo docker pull kiwenlau/hadoop:1.0
+./start-all.sh
 ```
-
-##### 2. clone github repository
-
+如下图：
+![](./images/hadoop.gif)
+2. 启动Hive:
 ```
-git clone https://github.com/kiwenlau/hadoop-cluster-docker
+./start-hive.sh
+```
+3. 停止Hadoop集群与Hive:
+```
+./stop-all.sh
 ```
 
-##### 3. create hadoop network
+
+### 二、调试Hive
+1. 初始化Hive并打开调试模式
+```
+docker exec -it hive bash
+
+cd $HIVE_HOME && bin/schematool -dbType derby -initSchema
+
+# 指定8000端口作为调试端口(**容器内端口**)，默认将8000端口映射到宿主机的10000端口。
+cd $HIVE_HOME && bin/hive  --debug:port=8000  -hiveconf hive.root.logger=DEBUG,console
 
 ```
-sudo docker network create --driver=bridge hadoop
-```
+如下图:
+![](./images/start-hive.png)
 
-##### 4. start container
+2. IDEA远程调试Hive
+默认情况下，Hive容器的8000端口映射到了宿主机的10000端口（可以在`start-hive.sh`中修改）。IDEA进行远程调试时，指定号宿主机IP:10000端口即可。\
+IDEA调试配置图：
+![](./images/IDEA.png)
+IDEA调试示意图：
+![](./images/IDEA-debug.png)
 
-```
-cd hadoop-cluster-docker
-sudo ./start-container.sh
-```
 
-**output:**
-
-```
-start hadoop-master container...
-start hadoop-slave1 container...
-start hadoop-slave2 container...
-root@hadoop-master:~# 
-```
-- start 3 containers with 1 master and 2 slaves
-- you will get into the /root directory of hadoop-master container
-
-##### 5. start hadoop
+### 三、编译其他版本
+编译其他版本的Hadoop和Hive，只需修改`Dockerfile`与`Dockerfile.hive`，或者在编译时指定`--build-arg`参数即可，如：
 
 ```
-./start-hadoop.sh
+docker build -f Dockerfile --build-arg HADOOP_VERSION=2.9.5 -t tkanng/hadoop:2.9.5 . 
 ```
-
-##### 6. run wordcount
-
-```
-./run-wordcount.sh
-```
-
-**output**
-
-```
-input file1.txt:
-Hello Hadoop
-
-input file2.txt:
-Hello Docker
-
-wordcount output:
-Docker    1
-Hadoop    1
-Hello    2
-```
-
-### Arbitrary size Hadoop cluster
-
-##### 1. pull docker images and clone github repository
-
-do 1~3 like section A
-
-##### 2. rebuild docker image
-
-```
-sudo ./resize-cluster.sh 5
-```
-- specify parameter > 1: 2, 3..
-- this script just rebuild hadoop image with different **slaves** file, which pecifies the name of all slave nodes
-
-
-##### 3. start container
-
-```
-sudo ./start-container.sh 5
-```
-- use the same parameter as the step 2
-
-##### 4. run hadoop cluster 
-
-do 5~6 like section A
-
