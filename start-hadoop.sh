@@ -2,6 +2,10 @@
 # create hadoop network, docker network create --driver=bridge hadoop
 # setup hadoop cluster.........
 # the default node number is 3
+
+
+docker network create hadoop 
+
 N=${1:-3}
 
 Image=tkanng/hadoop:2.7.7

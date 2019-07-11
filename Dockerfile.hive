@@ -2,7 +2,9 @@ FROM tkanng/hadoop:2.7.7
 
 ARG HIVE_VERSION=3.1.1
 
-RUN wget https://archive.apache.org/dist/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz && \
+
+# wget https://archive.apache.org/dist/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz 
+RUN wget https://mirrors.tuna.tsinghua.edu.cn/apache/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz && \
     tar -zxvf apache-hive-${HIVE_VERSION}-bin.tar.gz && \
     mv apache-hive-${HIVE_VERSION}-bin /usr/local/hive && \
     rm apache-hive-${HIVE_VERSION}-bin.tar.gz 
@@ -10,7 +12,3 @@ RUN wget https://archive.apache.org/dist/hive/hive-${HIVE_VERSION}/apache-hive-$
 
 ENV HIVE_HOME /usr/local/hive
 ENV PATH $PATH:$HIVE_HOME/bin
-
-# RUN cd $HIVE_HOME && \
-#    bin/schematool -dbType derby -initSchema
-
