@@ -7,7 +7,7 @@ echo "Building hadoop image..."
 docker build -f Dockerfile -t tkanng/hadoop:2.7.7 . 
 
 echo "Building hive image...."
-docker build -f Dockerfile.hive -t tkanng/hive:3.1.1 . 
+docker build -f Dockerfile.hive -t tkanng/hive:2.3.5 . 
 
 
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-Image=tkanng/hive:3.1.1
+Image=tkanng/hive:2.3.5
 
 # sudo docker rm -f hive &> /dev/null
 # 将8000端口映射到10000端口，IDEA连接宿主机IP:10000端口即可

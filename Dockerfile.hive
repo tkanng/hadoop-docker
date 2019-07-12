@@ -1,6 +1,6 @@
 FROM tkanng/hadoop:2.7.7
 
-ARG HIVE_VERSION=3.1.1
+ARG HIVE_VERSION=2.3.5
 
 
 
