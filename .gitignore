@@ -1,2 +1,4 @@
 .DS_Store
 jdk1.8.0_211/
+*.tar.gz
+.gradle/
